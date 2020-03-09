@@ -4,7 +4,7 @@
       <p>Search for public repositories on Github</p>
     </div>
     <div class="b-home-button">
-      <a href="https://github.com/mihkelratsep/github-repo-search" class="b-button-outline">View code on Github</a>
+      <a href="https://github.com/mihkelratsep/vue-github-repo-search" class="b-button-outline">View code on Github</a>
     </div>
   </div>
 </template>

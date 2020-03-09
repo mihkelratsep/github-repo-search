@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <header class="header">
+    <header class="b-header">
       <div class="l-main">
-        <div class="header-main">
-          <router-link :to="{ path: '/' }" class="header-main-logo">
+        <div class="b-header-main">
+          <router-link :to="{ path: '/' }" class="b-header-main-logo">
             Github search
           </router-link>
-          <router-link :to="{ path: '/bookmarks' }" class="header-main-bookmarks">
+          <router-link :to="{ path: '/bookmarks' }" class="b-header-main-bookmarks">
             Saved bookmarks
-            <div class="header-main-bookmarks-badge">
+            <div class="b-header-main-bookmarks-badge">
               <span>{{ bookmarksCount }}</span>
             </div>
           </router-link>
         </div>
       </div>
     </header>
-    <div class="header-search">
+    <div class="b-header-search">
       <SearchForm />
     </div>
     <div class="main">

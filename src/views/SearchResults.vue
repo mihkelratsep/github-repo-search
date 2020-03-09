@@ -13,52 +13,16 @@
         </div>
         <!-- results list -->
         <div class="b-list">
-          <div class="b-list-item" v-for="result in results" :key="result.id">
-            <div class="b-list-item-main" v-bind:class="{ bookmarked: isBookmarked(result.id) }">
-              <router-link
-                :to="{ path: `/repo/${result.owner.login}/${result.name}`}"
-                class="b-list-item-link"
-              >
-                <div class="b-list-item-name">
-                  {{ result.name }}
-                </div>
-                <div class="b-list-item-author">
-                  <figure :style="{ backgroundImage: `url('${result.owner.avatar_url}')` }">
-                    <img :src="result.owner.avatar_url" />
-                  </figure>
-                  <span>{{ result.owner.login }}</span>
-                </div>
-                <div class="b-list-item-counts">
-                  <div class="b-list-item-counts-item">
-                    <i>
-                      <Icons name="star" color="#666" />
-                    </i>
-                    <span>{{ isNumber(result.stargazers_count) }}</span>
-                  </div>
-                  <div class="b-list-item-counts-item">
-                    <i>
-                      <Icons name="fork" color="#666" width="16" height="21" />
-                    </i>
-                    <span>{{ isNumber(result.forks_count) }}</span>
-                  </div>
-                </div>
-              </router-link>
-              <div class="b-list-item-button">
-                <button
-                  class="button"
-                  v-on:click="bookmarkToggle(result)"
-                  v-bind:class="{ bookmarked: isBookmarked(result.id) }"
-                >
-                  <div v-if="isBookmarked(result.id)">
-                    Remove bookmark
-                  </div>
-                  <div v-else>
-                    Add bookmark
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
+          <ListItem
+            v-for="result in results"
+            :key="result.id"
+            :result="result"
+            :name="result.name"
+            :owner="result.owner.login"
+            :avatar="result.owner.avatar_url"
+            :stars="result.stargazers_count"
+            :forks="result.forks_count"
+          />
         </div>
         <!-- load next & prev -->
         <div v-if="resultsCount > 10">
@@ -82,14 +46,14 @@
 
 <script>
 import { mapState } from 'vuex';
-import Icons from '../components/Icons.vue';
 import Loader from '../components/Loader.vue';
 import numberFormat from '../components/numberFormat';
+import ListItem from '../components/ListItem.vue';
 
 export default {
   name: 'SearchResults',
   components: {
-    Icons,
+    ListItem,
     Loader,
   },
   data() {
@@ -105,7 +69,6 @@ export default {
       loading: (state) => state.loading,
       results: (state) => state.results.items || [],
       resultsCount: (state) => state.results.total_count,
-      bookmarksList: (state) => state.bookmarksList,
     }),
   },
   methods: {
@@ -118,12 +81,6 @@ export default {
       const query = this.$store.getters.searchQuery;
       this.$store.dispatch('getResults', [query, this.page -= 1]);
       this.$router.push(`/search?q=${query}&p=${this.page}`);
-    },
-    bookmarkToggle(item) {
-      this.$store.commit('bookmarkToggle', item);
-    },
-    isBookmarked(item) {
-      return this.$store.state.bookmarksList.find((x) => x.id === item);
     },
     isNumber(val) {
       return numberFormat(val);

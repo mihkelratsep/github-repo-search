@@ -4,10 +4,10 @@ const path = require('path');
 const history = require('connect-history-api-fallback');
 
 const app = express();
-app.use(serveStatic(path.join(__dirname, 'dist')));
 app.use(history({
   verbose: true,
 }));
+app.use(serveStatic(path.join(__dirname, 'dist')));
 app.use(express.static('.'));
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
 app.listen(port);

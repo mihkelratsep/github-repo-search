@@ -1,0 +1,41 @@
+@import 'list.scss';
+
+.b-search-results {
+  padding: 60px 0;
+
+  &-info {
+    margin-bottom: 42px;
+    text-align: center;
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    p {
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+  }
+}
+
+.load-more {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &-buttons {
+    display: flex;
+  }
+
+  .button {
+    font-size: 14px;
+    color: $medium;
+
+    &.disabled {
+      opacity: .5;
+    }
+  }
+}

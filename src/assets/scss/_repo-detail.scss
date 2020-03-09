@@ -1,0 +1,90 @@
+@import 'global.scss';
+@import 'github-md.scss';
+
+.b-repo-detail {
+  @include layout(960px);
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.b-repo {
+  border: 1px solid $light;
+  border-radius: 5px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &-main {
+    &-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+      margin-bottom: 18px;
+    }
+
+    &-author {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      figure {
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        overflow: hidden;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+
+        img {
+          display: none
+        }
+      }
+
+      span {
+        color: $medium;
+        font-size: 14px;
+        padding-left: 10px;
+      }
+    }
+    &-counts {
+      display: flex;
+      align-items: center;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        margin-right: 45px;
+
+        i {
+          margin-right: 10px;
+        }
+
+        span {
+          color: $medium;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  &-button {
+    @media (max-width: 500px) {
+      display: flex;
+      justify-content: center;
+      margin-top: 36px;
+      width: 100%;
+    }
+  }
+}
+
+.readme {
+  padding: 60px 0;
+}

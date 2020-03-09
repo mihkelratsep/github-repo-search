@@ -1,0 +1,67 @@
+@import 'reset';
+
+$active: #4ACD98;
+$dark: #212121;
+$medium: #666;
+$light: #ddd;
+
+$w-main: 1200px;
+
+@mixin transition {
+  transition: all .2s ease-in-out;
+}
+
+@mixin layout($width) {
+  margin: auto;
+  padding-left: 60px;
+  padding-right: 60px;
+  width: $width + 120px;
+
+  @media (max-width: $width + 120px) {
+    width: 100%;
+  }
+
+  @media (max-width: 800px) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  
+  @media (max-width: 600px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }  
+}
+
+#app {
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: $dark;
+}
+
+a {
+  text-decoration: none;
+}
+
+.l-main {
+  height: 100%;
+  position: relative;
+  @include layout(1200px);
+}
+
+.b-button-outline {
+  height: 42px;
+  border: 1px solid $dark;
+  color: $dark;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 30px;
+  border-radius: 21px;
+  display: inline-flex;
+  align-items: center;
+  @include transition;
+
+  &:hover {
+    background-color: $dark;
+    color: white;;
+  }
+}

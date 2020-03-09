@@ -1,0 +1,18 @@
+@import 'global';
+
+.b-home {
+  text-align: center;
+  padding-top: 120px;
+
+  &-message {
+    p {
+      color: $dark;
+      font-size: 24px;
+      line-height: 1.5;
+    }
+  }
+
+  &-button {
+    margin-top: 60px;
+  }
+}

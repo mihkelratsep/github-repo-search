@@ -32,12 +32,10 @@
           <a :href="repo.html_url" target="_blank" class="b-button-outline">View on Github</a>
         </div>
       </div>
-      <div v-if="readme.length > 0">
-        <div class="readme markdown-body">
-          <VueMarkdown>
-            {{ readme }}
-          </VueMarkdown>
-        </div>
+      <div class="readme markdown-body">
+        <VueMarkdown>
+          {{ readme }}
+        </VueMarkdown>
       </div>
     </div>
     <div v-if="error">
@@ -63,7 +61,7 @@ export default {
   data() {
     return {
       repo: {},
-      readme: '',
+      readme: null,
       loading: true,
       error: '',
     };
@@ -76,19 +74,42 @@ export default {
     const repoUrl = baseUrl;
     const readmeUrl = `${baseUrl}/readme`;
 
-    const getRepo = axios.get(repoUrl);
-    const getReadme = axios.get(readmeUrl);
-
-    axios.all([getRepo, getReadme])
-      .then(axios.spread((...responses) => {
+    axios.get(repoUrl)
+      .then((res) => res.data)
+      .then((results) => {
         this.loading = false;
-        const resRepo = responses[0];
-        const resReadme = responses[1];
-        this.repo = resRepo.data;
-        this.readme = window.atob(resReadme.data.content);
-      })).catch((error) => {
+        this.repo = results;
+      })
+      .catch((error) => {
         this.error = error;
-        this.loading = false;
+      });
+
+    const { CancelToken } = axios;
+
+    let cancel;
+
+    if (cancel !== undefined) {
+      cancel();
+    }
+
+    axios.get(readmeUrl, {
+      cancelToken: new CancelToken(
+        ((c) => {
+          cancel = c;
+        }),
+      ),
+    })
+      .then((response) => {
+        cancel();
+        this.readme = window.atob(response.data.content);
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          this.readme = null;
+          this.error = 'This repository does not have a README.md file';
+        } else {
+          this.error = error;
+        }
       });
   },
   methods: {
